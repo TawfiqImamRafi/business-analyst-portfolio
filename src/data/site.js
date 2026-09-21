@@ -213,7 +213,7 @@ export const aiLoop = [
 export const skills = [
   ["Product & Business", ["Product Discovery", "Requirement Engineering", "Business Analysis", "Product Thinking", "Feature Definition", "Stakeholder Management", "Business Process Analysis", "Gap Analysis", "Impact Analysis"]],
   ["Documentation", ["PRD", "SRS", "BRD", "FRD", "Use Cases", "User Stories", "Acceptance Criteria", "Business Rules", "Functional Specifications"]],
-  ["Process & Design", ["Process Flow", "As-Is / To-Be", "User Journey Mapping", "Workflow Design", "Wireframing", "Prototyping", "Information Architecture", "UX Optimization"]],
+  ["Process & Design", ["Process Flow", "User Journey Mapping", "Workflow Design", "Wireframing", "Prototyping", "Information Architecture", "UX Optimization"]],
   ["Enterprise Domains", ["Fleet Management", "Supply Chain", "Inventory", "CRM", "CMS", "Healthcare", "Fintech", "OTA"]],
   ["AI & Tools", ["Claude", "ChatGPT", "Figma", "Draw.io", "Miro", "Visio", "MS Office", "Google Workspace"]],
 ];
