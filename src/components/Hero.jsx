@@ -33,7 +33,7 @@ export default function Hero() {
             </p>
             <div className="hero-btns">
               <a className="btn solid" href="#cases">
-                Explore My Work →
+                Explore My Work <span className="arr">→</span>
               </a>
               <a className="btn" href={RESUME} download={RESUME_FILENAME}>
                 Download Resume
@@ -79,7 +79,7 @@ export default function Hero() {
           <div className="card-label">How work moves</div>
           <div className="flow">
             {flowSteps.map((step, i) => (
-              <div className="step" key={step}>
+              <div className="step" key={step} style={{ "--d": `${i * 70}ms` }}>
                 <div className="n">{n(i)}</div>
                 <div className="s">{step}</div>
               </div>

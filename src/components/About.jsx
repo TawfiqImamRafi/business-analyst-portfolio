@@ -24,7 +24,7 @@ export default function About() {
               </p>
               <p>
                 I work across enterprise systems, fleet management, healthcare,
-                fintech, ERP, supply chain, inventory, CRM, CMS and travel technology.
+                fintech, supply chain, inventory, CRM, CMS and travel technology.
                 The domains change; the discipline doesn't — understand deeply,
                 structure clearly, validate continuously.
               </p>
@@ -46,8 +46,11 @@ export default function About() {
           <div className="card reveal">
             <div className="card-label">What that looks like in practice</div>
             <ul className="checklist">
-              {checklist.map((item) => (
-                <li key={item}>{item}</li>
+              {/* --d staggers each line in once the card has revealed */}
+              {checklist.map((item, i) => (
+                <li key={item} style={{ "--d": `${i * 45}ms` }}>
+                  {item}
+                </li>
               ))}
             </ul>
           </div>

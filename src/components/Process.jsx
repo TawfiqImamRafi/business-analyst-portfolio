@@ -12,7 +12,7 @@ export default function Process() {
         </div>
         <div className="process reveal">
           {processSteps.map(([title, body], i) => (
-            <div className="p" key={title}>
+            <div className="p" key={title} style={{ "--d": `${i * 70}ms` }}>
               <div className="num n">{n(i)}</div>
               <h3>{title}</h3>
               <p>{body}</p>

@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { navItems, RESUME, RESUME_FILENAME } from "../data/site.js";
-import { useStuckHeader, useActiveSection } from "../hooks/useScrollBehaviour.js";
+import {
+  useStuckHeader,
+  useActiveSection,
+  useScrollProgress,
+} from "../hooks/useScrollBehaviour.js";
 
 const hrefs = navItems.map((n) => n.href);
 
@@ -8,6 +12,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const stuck = useStuckHeader();
   const active = useActiveSection(hrefs);
+  const progress = useScrollProgress();
 
   return (
     <header id="top" className={stuck ? "stuck" : undefined}>
@@ -43,6 +48,13 @@ export default function Header() {
           <span />
         </button>
       </div>
+
+      {/* reading position, drawn along the bottom edge of the header */}
+      <div
+        className="progress"
+        aria-hidden="true"
+        style={{ transform: `scaleX(${progress})` }}
+      />
 
       <div className={open ? "mobile-menu open" : "mobile-menu"}>
         {navItems.map((item) => (

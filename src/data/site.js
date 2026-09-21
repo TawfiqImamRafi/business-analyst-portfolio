@@ -32,7 +32,6 @@ export const marqueeItems = [
   "Fleet Management",
   "Healthcare",
   "Fintech",
-  "ERP",
   "Supply Chain",
   "Inventory",
   "CRM",
@@ -62,47 +61,16 @@ export const capabilities = [
   ["AI-Assisted Product Development", "Use AI tools such as Claude and ChatGPT for product research, analysis, rapid prototyping, workflow exploration and validation."],
 ];
 
+/* Product names only — the case-study cards carry no description. */
 export const cases = [
-  {
-    name: "FirstTrip", tag: "B2C", kind: "Online Travel Agency",
-    desc: "A full OTA — flights, hotels and holiday packages with search, fare rules, bookings and online payment.",
-    part: "Booking journeys, payment flows, SRS and requirement validation.",
-  },
-  {
-    name: "Trip Lover", tag: "B2C", kind: "Travel Booking",
-    desc: "A travel booking platform for flights, hotels and tour packages, built around deals, coupons and a smooth checkout.",
-    part: "Requirement analysis, user flows and feature definitions.",
-  },
-  {
-    name: "TravelChamp", tag: "B2B", kind: "Travel Trade Platform",
-    desc: "A platform for travel agents — agency panels, markups, wallets and bookings made on behalf of their own customers.",
-    part: "Agent workflow design, business rules and module requirements.",
-  },
-  {
-    name: "Take Trip", tag: "B2B & B2C", kind: "Travel Booking",
-    desc: "Travel booking serving both direct travellers and agent partners, with separate journeys for each side.",
-    part: "Dual-audience journey mapping and functional specifications.",
-  },
-  {
-    name: "Take Off", tag: "B2C", kind: "Flight Booking",
-    desc: "A flight-focused booking product — fast search, fare comparison and a booking flow that keeps drop-off low.",
-    part: "Search-to-booking flow analysis and requirement documents.",
-  },
-  {
-    name: "Meditrip", tag: "B2C", kind: "Medical Travel",
-    desc: "A medical travel platform connecting patients with hospitals and treatment packages, from enquiry to coordinated care.",
-    part: "Patient journeys, enquiry-to-case flow and CRM/CMS requirements.",
-  },
-  {
-    name: "PayNext", tag: "B2B & B2C", kind: "Fintech / Payments",
-    desc: "A payment platform routing transactions across providers — cards, mobile wallets and failure handling in one flow.",
-    part: "Transaction flows, integration analysis and business rule specifications.",
-  },
-  {
-    name: "CartUp", tag: "B2B", kind: "Commerce / ERP SaaS",
-    desc: "A commerce platform for businesses — products, sales, inventory and delivery working as one connected system.",
-    part: "Module design, process definitions and functional requirements.",
-  },
+  "FirstTrip",
+  "Trip Lover",
+  "TravelChamp",
+  "Take Trip",
+  "Take Off",
+  "Meditrip",
+  "PayNext",
+  "CartUp",
 ];
 
 /* tag is the pill: Spec / Delivery / Process / Design.
@@ -149,6 +117,16 @@ export const docs = [
     who: "Developers and QA",
   },
   {
+    title: "Use Cases", tag: "Spec", desc: "How each actor moves through the system",
+    inside: [
+      "Actor, goal, trigger and preconditions",
+      "Main success flow, step by step",
+      "Alternate and exception paths",
+      "Postconditions and system responses",
+    ],
+    who: "Developers, QA and architects",
+  },
+  {
     title: "User Stories", tag: "Delivery", desc: "Value expressed from the user's side",
     inside: [
       "Role, need and benefit in a single line",
@@ -177,16 +155,6 @@ export const docs = [
       "Efficiency gains stated in measurable terms",
     ],
     who: "Operations and business owners",
-  },
-  {
-    title: "BPMN", tag: "Process", desc: "Standardised process notation",
-    inside: [
-      "Swimlanes per actor and system",
-      "Tasks, gateways and events",
-      "Exception and escalation paths",
-      "Sub-process decomposition where it earns it",
-    ],
-    who: "Engineering and operations",
   },
   {
     title: "Business Rules", tag: "Process", desc: "Explicit, unambiguous logic",
@@ -244,9 +212,9 @@ export const aiLoop = [
 
 export const skills = [
   ["Product & Business", ["Product Discovery", "Requirement Engineering", "Business Analysis", "Product Thinking", "Feature Definition", "Stakeholder Management", "Business Process Analysis", "Gap Analysis", "Impact Analysis"]],
-  ["Documentation", ["PRD", "SRS", "BRD", "FRD", "User Stories", "Acceptance Criteria", "Business Rules", "Functional Specifications"]],
-  ["Process & Design", ["BPMN", "Process Flow", "As-Is / To-Be", "User Journey Mapping", "Workflow Design", "Wireframing", "Prototyping", "Information Architecture", "UX Optimization"]],
-  ["Enterprise Domains", ["Fleet Management", "ERP", "Supply Chain", "Inventory", "CRM", "CMS", "Healthcare", "Fintech", "OTA"]],
+  ["Documentation", ["PRD", "SRS", "BRD", "FRD", "Use Cases", "User Stories", "Acceptance Criteria", "Business Rules", "Functional Specifications"]],
+  ["Process & Design", ["Process Flow", "As-Is / To-Be", "User Journey Mapping", "Workflow Design", "Wireframing", "Prototyping", "Information Architecture", "UX Optimization"]],
+  ["Enterprise Domains", ["Fleet Management", "Supply Chain", "Inventory", "CRM", "CMS", "Healthcare", "Fintech", "OTA"]],
   ["AI & Tools", ["Claude", "ChatGPT", "Figma", "Draw.io", "Miro", "Visio", "MS Office", "Google Workspace"]],
 ];
 

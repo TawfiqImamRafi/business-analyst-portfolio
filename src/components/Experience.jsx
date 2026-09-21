@@ -11,8 +11,8 @@ export default function Experience() {
         </div>
         <div className="two-col" style={{ marginTop: 44 }}>
           <div className="timeline reveal">
-            {timeline.map(([years, company, role]) => (
-              <div className="tl" key={company}>
+            {timeline.map(([years, company, role], i) => (
+              <div className="tl" key={company} style={{ "--d": `${i * 110}ms` }}>
                 <div className="yr">{years}</div>
                 <h3>{company}</h3>
                 <span>{role}</span>

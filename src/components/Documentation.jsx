@@ -18,8 +18,12 @@ export default function Documentation() {
           </p>
         </div>
         <div className="grid-3" style={{ marginTop: 44 }}>
-          {docs.map((d) => (
-            <div className="card hoverable doc reveal" key={d.title}>
+          {docs.map((d, i) => (
+            <div
+              className="card hoverable doc reveal"
+              key={d.title}
+              style={{ "--d": `${(i % 3) * 70}ms` }}
+            >
               <div className="doc-head">
                 <h3>{d.title}</h3>
                 <span className="doc-tag">{d.tag}</span>

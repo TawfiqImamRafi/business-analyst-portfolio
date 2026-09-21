@@ -39,7 +39,8 @@ rifat-portfolio-react/
 
 **Text and lists** — [`src/data/site.js`](src/data/site.js). Case studies, documentation
 cards, skills groups, capabilities, principles, timeline, contact details and the
-resume filename are all there. Adding a case study means adding one object to `cases`.
+resume filename are all there. `cases` is a plain list of product names — the cards
+deliberately carry no description, so adding a case study is adding one string.
 
 Each `docs` entry is an object: `title`, `tag` (the pill — Spec / Delivery / Process /
 Design), `desc`, `inside` (four bullets) and `who`. Keep `inside` to four bullets so the
@@ -59,21 +60,35 @@ Process and Contact sections.
 - `.thinkrow` and `.loop` are wrapping flex rows whose pills and arrows must stay
   **direct children**. When mapping over them use a `<Fragment>`, never a wrapper
   `<span>`, or the gaps and wrapping break.
-- Case-study and documentation cards are flex columns with the footer pushed down by
+- Documentation cards are flex columns with the footer pushed down by
   `margin-top:auto`, so footers line up across a row. Grid rows are equal height, which
   is why a card with short text shows a gap above its divider.
 
 ## Behaviour
 
-Three hooks in `useScrollBehaviour.js` replace what were inline scripts:
+Four hooks in `useScrollBehaviour.js` replace what were inline scripts:
 
 - `useStuckHeader` — border and shadow on the sticky header once you scroll past 8px.
 - `useActiveSection` — which nav link is underlined. A section becomes current when its
   top passes a line 130px below the viewport top; at the very bottom of the page the
   last section always wins, because the page runs out of scroll before Contact's top
   ever reaches that line.
-- `useReveal` — fades `.reveal` elements in on scroll, and is skipped entirely when the
-  visitor has `prefers-reduced-motion` set.
+- `useReveal` — fades `.reveal` elements in on scroll.
+- `useScrollProgress` — 0 → 1 reading position, drawn as the accent bar along the bottom
+  edge of the header. Scroll reads are batched into one animation frame.
+
+## Motion
+
+- Everything shares one easing token, `--ease`, and four keyframes (`rise`, `settle`,
+  `float`, `pop`) defined in the motion block near the bottom of `styles.css`.
+- The hero animates itself in on load. Everything below the fold waits for `.reveal`.
+- Stagger comes from a `--d` custom property set in the JSX
+  (`style={{ "--d": `${i * 55}ms` }}`), not from JavaScript — so a row always cascades
+  in the order it is written rather than the order the observer happens to fire. Rows
+  inside an already-revealed card (flow steps, process steps, checklist, timeline) hang
+  their animation off the parent's `.in` class and add `--d` on top.
+- One `prefers-reduced-motion` block at the end of the motion section switches all of it
+  off, including the marquee and smooth scrolling.
 
 ## Deploying to Cloudflare Pages
 
@@ -104,8 +119,9 @@ router.
 ## Notes
 
 - Fonts (Sora + Manrope) load from Google Fonts, with a system sans-serif fallback.
-- Responsive to 360px. Case studies are 4 columns, dropping to 2 below 1080px and 1
-  below 700px, so all eight are always visible.
+- Responsive to 360px. The case-study tiles are 4 columns, dropping to 3 below 1080px,
+  2 below 700px and 1 below 480px — where a two-up tile gets narrower than the longest
+  product name.
 - If `portrait.jpg` is missing the photo slot falls back to an "RM" monogram rather
   than breaking the layout.
 - No analytics, cookies or trackers.

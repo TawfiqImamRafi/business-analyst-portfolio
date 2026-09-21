@@ -40,7 +40,9 @@ export function useActiveSection(hrefs) {
 }
 
 /* Fades elements in as they enter the viewport. Everything carrying .reveal is
-   observed once; without IntersectionObserver they are simply shown. */
+   observed once; without IntersectionObserver they are simply shown. The
+   stagger inside a grid comes from the `--d` custom property each card sets,
+   not from here, so a row always cascades in the same order. */
 export function useReveal() {
   useEffect(() => {
     const nodes = document.querySelectorAll(".reveal:not(.in)");
@@ -50,9 +52,8 @@ export function useReveal() {
     }
     const io = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry, i) => {
+        entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          entry.target.style.transitionDelay = Math.min(i * 55, 220) + "ms";
           entry.target.classList.add("in");
           io.unobserve(entry.target);
         });
@@ -62,4 +63,31 @@ export function useReveal() {
     nodes.forEach((n) => io.observe(n));
     return () => io.disconnect();
   }, []);
+}
+
+/* How far down the page we are, 0 → 1, for the accent bar under the header.
+   Reads are batched into one animation frame so the scroll stays cheap. */
+export function useScrollProgress() {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - window.innerHeight;
+      setProgress(scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(measure);
+    };
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+  return progress;
 }

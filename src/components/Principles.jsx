@@ -12,7 +12,11 @@ export default function Principles() {
         </div>
         <div className="grid-3" style={{ marginTop: 44 }}>
           {principles.map(([title, body], i) => (
-            <div className="card hoverable reveal" key={title}>
+            <div
+              className="card hoverable reveal"
+              key={title}
+              style={{ "--d": `${(i % 3) * 70}ms` }}
+            >
               <div className="num">{n(i)}</div>
               <h3>{title}</h3>
               <p>{body}</p>

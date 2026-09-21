@@ -13,8 +13,12 @@ export default function Skills() {
           </h2>
         </div>
         <div className="grid-3" style={{ marginTop: 44 }}>
-          {skills.map(([group, tags]) => (
-            <div className="card skills reveal" key={group}>
+          {skills.map(([group, tags], i) => (
+            <div
+              className="card skills reveal"
+              key={group}
+              style={{ "--d": `${(i % 3) * 70}ms` }}
+            >
               <h3>{group}</h3>
               <div className="tagwrap">
                 {tags.map((tag) => (

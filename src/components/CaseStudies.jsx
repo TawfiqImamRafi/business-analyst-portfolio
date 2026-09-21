@@ -10,24 +10,20 @@ export default function CaseStudies() {
           <div className="eyebrow">Featured case studies</div>
           <h2 className="title">Real products, live in the market.</h2>
           <p className="lede">
-            Eight live products I've worked on across travel, healthcare, payments
-            and commerce — serving both B2B and B2C. Each card is what the product
-            does and exactly where I came in.
+            Eight products I've worked on across travel, healthcare, payments and
+            commerce — all live and serving real users.
           </p>
         </div>
         <div className="cases">
-          {cases.map((c, i) => (
-            <article className="card hoverable case reveal" key={c.name}>
-              <div className="case-top">
-                <span className="num">{n(i)}</span>
-                <span className="tag">{c.tag}</span>
-              </div>
-              <h3>{c.name}</h3>
-              <div className="kind">{c.kind}</div>
-              <p className="desc">{c.desc}</p>
-              <div className="part">
-                <b>My part —</b> {c.part}
-              </div>
+          {/* Names only — no description, by design. --d staggers the reveal. */}
+          {cases.map((name, i) => (
+            <article
+              className="card hoverable case reveal"
+              key={name}
+              style={{ "--d": `${i * 55}ms` }}
+            >
+              <span className="num">{n(i)}</span>
+              <h3>{name}</h3>
             </article>
           ))}
         </div>
