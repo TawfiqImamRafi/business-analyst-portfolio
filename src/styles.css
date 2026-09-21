@@ -116,7 +116,7 @@ nav.links a.active::after{transform:scaleX(1)}
   mask-image:radial-gradient(70% 60% at 45% 35%,#000 0%,transparent 75%);
 }
 .hero .wrap{position:relative}
-.hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:56px;align-items:center}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center}
 .badge{
   display:inline-flex;align-items:center;gap:9px;border:1px solid var(--border);
   background:var(--card);border-radius:999px;padding:7px 15px;font-size:13.5px;font-weight:600;
@@ -140,7 +140,9 @@ h1 .accent{color:var(--accent)}
   transition:border-color .22s ease,transform .22s var(--ease);
 }
 .pill:hover{border-color:var(--accent);transform:translateY(-2px)}
-.portrait-wrap{position:relative;padding-top:26px}
+/* The card is capped rather than filling its column, so the photo stays a small
+   supporting element next to the headline instead of a hero image. */
+.portrait-wrap{position:relative;padding-top:26px;max-width:320px;margin-left:auto}
 .portrait-card{
   background:var(--card);border:1px solid var(--border);border-radius:22px;padding:14px;
   box-shadow:0 22px 60px -22px rgba(15,23,32,.26);
@@ -162,9 +164,9 @@ h1 .accent{color:var(--accent)}
 .portrait-meta span{font-size:13.5px;color:var(--fg-soft)}
 .yrs{background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:700;white-space:nowrap}
 .now-card{
-  position:absolute;top:0;left:-34px;z-index:3;
-  background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 18px;
-  box-shadow:0 14px 34px -14px rgba(15,23,32,.25);max-width:255px;
+  position:absolute;top:-8px;left:-92px;z-index:3;
+  background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px 16px;
+  box-shadow:0 14px 34px -14px rgba(15,23,32,.25);max-width:230px;
 }
 .now-card .k{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
 .now-card .v{font-family:var(--font-h);font-size:15px;font-weight:600;margin-top:5px;line-height:1.35}
