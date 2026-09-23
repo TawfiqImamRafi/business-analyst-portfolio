@@ -1,6 +1,5 @@
 import { processSteps } from "../data/site.js";
-
-const n = (i) => String(i + 1).padStart(2, "0");
+import { indexLabel } from "../lib/format.js";
 
 export default function Process() {
   return (
@@ -13,7 +12,7 @@ export default function Process() {
         <div className="process reveal">
           {processSteps.map(([title, body], i) => (
             <div className="p" key={title} style={{ "--d": `${i * 70}ms`, "--i": i }}>
-              <div className="num n">{n(i)}</div>
+              <div className="num n">{indexLabel(i)}</div>
               <h3>{title}</h3>
               <p>{body}</p>
             </div>

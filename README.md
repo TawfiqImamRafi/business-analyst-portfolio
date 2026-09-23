@@ -1,8 +1,6 @@
 # Rifat Jahan Mim — Portfolio (React + Vite)
 
-The portfolio site as a Vite + React app. Same design and content as the original
-single-file version — the stylesheet was carried over unchanged, so what renders is
-identical; only the markup and behaviour moved into components.
+The portfolio site as a Vite + React app.
 
 ## Running it
 
@@ -29,8 +27,11 @@ rifat-portfolio-react/
 │   ├── App.jsx             ← section order lives here
 │   ├── styles.css          ← the entire stylesheet, one global file
 │   ├── data/site.js        ← all list content and contact details
+│   ├── lib/format.js       ← shared formatting helpers (e.g. card numbering)
 │   ├── hooks/
 │   │   └── useScrollBehaviour.js
+│   ├── context/
+│   │   └── ResumePreview.jsx  ← "View Resume" modal (context + the modal itself)
 │   └── components/         ← one file per section
 └── vite.config.js
 ```
@@ -74,7 +75,8 @@ Process and Contact sections.
 
 ## Behaviour
 
-Four hooks in `useScrollBehaviour.js` replace what were inline scripts:
+`useScrollBehaviour.js` holds every scroll/pointer-driven hook, in place of what were
+once inline scripts:
 
 - `useStuckHeader` — border and shadow on the sticky header once you scroll past 8px.
 - `useActiveSection` — which nav link is underlined. A section becomes current when its
@@ -84,11 +86,20 @@ Four hooks in `useScrollBehaviour.js` replace what were inline scripts:
 - `useReveal` — fades `.reveal` elements in on scroll.
 - `useScrollProgress` — 0 → 1 reading position, drawn as the accent bar along the bottom
   edge of the header. Scroll reads are batched into one animation frame.
+- `useSpotlight` — writes the pointer position into `--mx`/`--my` on the hoverable card
+  under it, for the cursor-follow glow. Skipped on touch devices.
+- `useHeroParallax` — writes scroll distance into `--sy` on `.hero`, for the slow
+  background-grid drift.
+- `useTypewriter(words)` — types a word, pauses, deletes it, moves to the next; used for
+  the rotating role line under the hero name.
+
+All of these back off to a static, motionless state under `prefers-reduced-motion`.
 
 ## Motion
 
-- Everything shares one easing token, `--ease`, and four keyframes (`rise`, `settle`,
-  `float`, `pop`) defined in the motion block near the bottom of `styles.css`.
+- Everything shares one easing token, `--ease`, and a set of keyframes defined in the
+  motion block near the bottom of `styles.css` (`rise`, `settle`, `float`, `pop`, `drop`,
+  `drift`, `nudge`, `caret`, plus the workflow/process "glow" keyframes).
 - The hero animates itself in on load. Everything below the fold waits for `.reveal`.
 - Stagger comes from a `--d` custom property set in the JSX
   (`style={{ "--d": `${i * 55}ms` }}`), not from JavaScript — so a row always cascades
@@ -96,40 +107,24 @@ Four hooks in `useScrollBehaviour.js` replace what were inline scripts:
   inside an already-revealed card (flow steps, process steps, checklist, timeline) hang
   their animation off the parent's `.in` class and add `--d` on top.
 - One `prefers-reduced-motion` block at the end of the motion section switches all of it
-  off, including the marquee and smooth scrolling.
+  off, including the marquee, smooth scrolling and the résumé-modal transition.
 
-## Deploying to Cloudflare Pages
+## Deploying
 
-Push to GitHub first:
+The repo is connected to Vercel, which redeploys automatically on every push to `main`:
+<https://rifat-jahan-mim-portfolio.vercel.app>. Push a normal commit (or merge a branch
+into `main`) and the live site updates within a minute or two — no manual build/upload
+step, and no `vercel` CLI needed for routine changes.
 
-```bash
-git remote add origin https://github.com/<username>/<repo>.git
-git branch -M main
-git push -u origin main
-```
-
-Then in Cloudflare: **Workers & Pages → Create application → Pages → Connect to Git**,
-pick the repo, and set:
-
-| Setting | Value |
-|---|---|
-| Framework preset | Vite |
-| Build command | `npm run build` |
-| Build output directory | `dist` |
-
-Deploy. You get a `https://<project>.pages.dev` address, and every push to `main`
-rebuilds automatically. A custom domain is added later under the project's **Custom
-domains** tab; Cloudflare handles the certificate.
-
-Nothing here needs a `_redirects` file — the site is one page with anchor links, not a
-router.
+Nothing here needs a rewrite/redirects config — the site is one page with anchor links,
+not a router.
 
 ## Notes
 
 - Fonts (Sora + Manrope) load from Google Fonts, with a system sans-serif fallback.
-- Responsive to 360px. The case-study tiles are 4 columns, dropping to 3 below 1080px,
-  2 below 700px and 1 below 480px — where a two-up tile gets narrower than the longest
-  product name.
+- Responsive to 360px. Case studies are single-column accordion cards at every width.
+  The live-products tiles are 4 columns, dropping to 3 below 1080px, 2 below 700px and
+  1 below 340px — where a two-up tile gets narrower than the longest product name.
 - If `portrait.jpg` is missing the photo slot falls back to an "RM" monogram rather
   than breaking the layout.
 - No analytics, cookies or trackers.

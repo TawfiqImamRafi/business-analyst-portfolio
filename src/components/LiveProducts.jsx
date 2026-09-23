@@ -1,6 +1,5 @@
 import { liveProducts } from "../data/site.js";
-
-const n = (i) => String(i + 1).padStart(2, "0");
+import { indexLabel } from "../lib/format.js";
 
 export default function LiveProducts() {
   return (
@@ -22,7 +21,7 @@ export default function LiveProducts() {
               key={name}
               style={{ "--d": `${i * 55}ms`, "--i": i }}
             >
-              <span className="num">{n(i)}</span>
+              <span className="num">{indexLabel(i)}</span>
               <h3>{name}</h3>
               {note ? (
                 <span className="live note">{note}</span>

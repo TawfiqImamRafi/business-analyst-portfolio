@@ -2,8 +2,7 @@ import { useState } from "react";
 import { flowSteps, roles } from "../data/site.js";
 import { useResumePreview } from "../context/ResumePreview.jsx";
 import { useTypewriter } from "../hooks/useScrollBehaviour.js";
-
-const n = (i) => String(i + 1).padStart(2, "0");
+import { indexLabel } from "../lib/format.js";
 
 export default function Hero() {
   /* The original page swapped a broken portrait for an "RM" monogram via an
@@ -88,7 +87,7 @@ export default function Hero() {
           <div className="flow">
             {flowSteps.map((step, i) => (
               <div className="step" key={step} style={{ "--d": `${i * 70}ms` }}>
-                <div className="n">{n(i)}</div>
+                <div className="n">{indexLabel(i)}</div>
                 <div className="s">{step}</div>
               </div>
             ))}

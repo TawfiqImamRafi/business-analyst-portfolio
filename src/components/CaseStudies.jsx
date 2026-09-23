@@ -1,7 +1,6 @@
 import { Fragment, useId, useState } from "react";
 import { caseStudies } from "../data/site.js";
-
-const n = (i) => String(i + 1).padStart(2, "0");
+import { indexLabel } from "../lib/format.js";
 
 const COUNTS = ["No", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"];
 const sentence = (words) =>
@@ -92,7 +91,7 @@ function CaseStudy({ study, index, open, onToggle }) {
     <article className={open ? "cs open reveal" : "cs reveal"} style={{ "--d": `${index * 80}ms` }}>
       <div className="cs-head">
         <div className="cs-meta">
-          <span className="num">{n(index)}</span>
+          <span className="num">{indexLabel(index)}</span>
           <span className="cs-domain">{study.domain}</span>
         </div>
         <h3 className="cs-title">

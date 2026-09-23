@@ -1,6 +1,5 @@
 import { principles } from "../data/site.js";
-
-const n = (i) => String(i + 1).padStart(2, "0");
+import { indexLabel } from "../lib/format.js";
 
 export default function Principles() {
   return (
@@ -17,7 +16,7 @@ export default function Principles() {
               key={title}
               style={{ "--d": `${(i % 3) * 70}ms` }}
             >
-              <div className="num">{n(i)}</div>
+              <div className="num">{indexLabel(i)}</div>
               <h3>{title}</h3>
               <p>{body}</p>
             </div>
