@@ -13,6 +13,17 @@ export default function Hero() {
 
   return (
     <section className="hero" id="home">
+      {/* purely decorative drifting glows + particles behind the content */}
+      <div className="hero-orbs" aria-hidden="true">
+        <span className="orb orb-a" />
+        <span className="orb orb-b" />
+        <span className="orb orb-c" />
+        <span className="dot d1" />
+        <span className="dot d2" />
+        <span className="dot d3" />
+        <span className="dot d4" />
+        <span className="dot d5" />
+      </div>
       <div className="wrap">
         <div className="hero-grid">
           <div>

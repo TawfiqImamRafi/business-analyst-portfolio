@@ -150,13 +150,40 @@ nav.links a.active::after{transform:scaleX(1)}
   -webkit-mask-image:radial-gradient(70% 60% at 45% 35%,#000 0%,transparent 75%);
   mask-image:radial-gradient(70% 60% at 45% 35%,#000 0%,transparent 75%);
 }
-/* a soft accent glow that drifts slowly behind the portrait */
-.hero::after{
-  content:"";position:absolute;z-index:0;pointer-events:none;
-  width:560px;height:560px;right:-160px;top:-180px;border-radius:50%;
-  background:radial-gradient(circle,rgba(18,128,154,.17),transparent 68%);
-  animation:drift 15s ease-in-out infinite alternate;
+/* Three soft, blurred colour glows drifting on independent loops, plus a
+   handful of small floating dots — a lightweight "creative" backdrop that
+   never competes with the text sitting on top of it (z-index:0, blurred,
+   low opacity). Real elements rather than pseudo-elements because a single
+   element only gets two (::before/::after) and this wants several. */
+.hero-orbs{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(50px);opacity:.6}
+.orb-a{
+  width:340px;height:340px;left:-90px;bottom:-110px;
+  background:radial-gradient(circle,rgba(18,128,154,.38),transparent 70%);
+  animation:orbit-a 22s ease-in-out infinite alternate;
 }
+.orb-b{
+  width:280px;height:280px;left:40%;top:-90px;
+  background:radial-gradient(circle,rgba(240,181,74,.3),transparent 70%);
+  animation:orbit-b 18s ease-in-out infinite alternate;
+}
+.orb-c{
+  width:220px;height:220px;right:12%;bottom:-60px;
+  background:radial-gradient(circle,rgba(124,109,241,.26),transparent 70%);
+  animation:orbit-c 26s ease-in-out infinite alternate;
+}
+@keyframes orbit-a{from{transform:translate(0,0) scale(1)}to{transform:translate(70px,-45px) scale(1.18)}}
+@keyframes orbit-b{from{transform:translate(0,0) scale(1)}to{transform:translate(-55px,35px) scale(.88)}}
+@keyframes orbit-c{from{transform:translate(0,0) scale(1)}to{transform:translate(45px,-30px) scale(1.12)}}
+.hero-orbs .dot{
+  position:absolute;width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.4;
+  animation:float 6s ease-in-out infinite;
+}
+.d1{left:14%;top:20%;animation-delay:0s}
+.d2{left:32%;top:70%;animation-delay:1.2s}
+.d3{left:58%;top:16%;animation-delay:.6s}
+.d4{left:70%;top:78%;animation-delay:2s}
+.d5{left:87%;top:38%;animation-delay:1.6s}
 .hero .wrap{position:relative;z-index:1}
 .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center}
 .badge{
@@ -620,7 +647,6 @@ footer{border-top:1px solid var(--dark-border);margin-top:54px;padding-top:26px;
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @keyframes pop{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:none}}
 @keyframes drop{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:none}}
-@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(-70px,50px) scale(1.12)}}
 @keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
 /* a step in a workflow lights up briefly, then rests until its turn comes round again */
 @keyframes stepglow{
@@ -648,6 +674,7 @@ footer{border-top:1px solid var(--dark-border);margin-top:54px;padding-top:26px;
   .reveal{opacity:1;transform:none;transition:none}
   .reveal:not(.in) h2.title{filter:none}
   .caret{animation:none;opacity:1}
+  .orb,.hero-orbs .dot{animation:none}
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important}
 }
 
