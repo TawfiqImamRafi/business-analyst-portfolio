@@ -2,7 +2,7 @@ import { docs } from "../data/site.js";
 
 export default function Documentation() {
   return (
-    <section className="alt" id="documentation">
+    <section id="documentation">
       <div className="wrap">
         <div className="reveal">
           <div className="eyebrow">Documentation</div>

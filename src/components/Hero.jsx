@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { flowSteps, RESUME, RESUME_FILENAME } from "../data/site.js";
+import { flowSteps, roles } from "../data/site.js";
+import { useResumePreview } from "../context/ResumePreview.jsx";
+import { useTypewriter } from "../hooks/useScrollBehaviour.js";
 
 const n = (i) => String(i + 1).padStart(2, "0");
 
@@ -7,6 +9,8 @@ export default function Hero() {
   /* The original page swapped a broken portrait for an "RM" monogram via an
      inline onerror handler; in React that is just a piece of state. */
   const [portraitFailed, setPortraitFailed] = useState(false);
+  const openResume = useResumePreview();
+  const role = useTypewriter(roles);
 
   return (
     <section className="hero" id="home">
@@ -22,9 +26,13 @@ export default function Hero() {
               <br />
               <span className="accent">clear products.</span>
             </h1>
-            <div className="role">
-              Rifat Jahan Mim<span className="sep">·</span>
-              <span className="accent">Product Analyst</span>
+            <div className="role">Rifat Jahan Mim</div>
+            {/* reserves room for the longest role, so nothing else on the
+                page shifts as the word types and deletes */}
+            <div className="role-cycle-line accent">
+              {role}
+              <i className="caret" aria-hidden="true" />
+              <span className="sr-only">{roles.join(", ")}</span>
             </div>
             <p className="intro">
               I bridge business, product, design and engineering — turning complex
@@ -35,9 +43,9 @@ export default function Hero() {
               <a className="btn solid" href="#cases">
                 Explore My Work <span className="arr">→</span>
               </a>
-              <a className="btn" href={RESUME} download={RESUME_FILENAME}>
-                Download Resume
-              </a>
+              <button type="button" className="btn" onClick={openResume}>
+                View Resume
+              </button>
             </div>
             <div className="pills">
               <span className="pill">Product Discovery</span>

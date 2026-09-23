@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { navItems, RESUME, RESUME_FILENAME } from "../data/site.js";
+import { navItems } from "../data/site.js";
 import {
   useStuckHeader,
   useActiveSection,
   useScrollProgress,
 } from "../hooks/useScrollBehaviour.js";
+import { useResumePreview } from "../context/ResumePreview.jsx";
 
 const hrefs = navItems.map((n) => n.href);
 
@@ -13,6 +14,7 @@ export default function Header() {
   const stuck = useStuckHeader();
   const active = useActiveSection(hrefs);
   const progress = useScrollProgress();
+  const openResume = useResumePreview();
 
   return (
     <header id="top" className={stuck ? "stuck" : undefined}>
@@ -32,12 +34,9 @@ export default function Header() {
           ))}
         </nav>
         <div className="nav-cta">
-          <a className="btn" href={RESUME} download={RESUME_FILENAME}>
-            Download Resume
-          </a>
-          <a className="btn solid" href="#cases">
-            View Case Studies
-          </a>
+          <button type="button" className="btn solid" onClick={openResume}>
+            View Resume
+          </button>
         </div>
         <button
           className="burger"
@@ -56,23 +55,39 @@ export default function Header() {
         style={{ transform: `scaleX(${progress})` }}
       />
 
+      {/* the inner wrapper lets the menu open by animating grid rows 0fr → 1fr */}
       <div className={open ? "mobile-menu open" : "mobile-menu"}>
-        {navItems.map((item) => (
-          <a key={item.href} href={item.href} onClick={() => setOpen(false)}>
-            {item.label}
+        <div className="mm-inner">
+          {navItems.map((item, i) => (
+            <a
+              key={item.href}
+              href={item.href}
+              style={{ "--i": i }}
+              onClick={() => setOpen(false)}
+            >
+              {item.label}
+            </a>
+          ))}
+          <a
+            className="btn solid"
+            href="#cases"
+            style={{ "--i": navItems.length }}
+            onClick={() => setOpen(false)}
+          >
+            View Case Studies
           </a>
-        ))}
-        <a className="btn solid" href="#cases" onClick={() => setOpen(false)}>
-          View Case Studies
-        </a>
-        <a
-          className="btn"
-          href={RESUME}
-          download={RESUME_FILENAME}
-          onClick={() => setOpen(false)}
-        >
-          Download Resume
-        </a>
+          <button
+            type="button"
+            className="btn"
+            style={{ "--i": navItems.length + 1 }}
+            onClick={() => {
+              setOpen(false);
+              openResume();
+            }}
+          >
+            View Resume
+          </button>
+        </div>
       </div>
     </header>
   );

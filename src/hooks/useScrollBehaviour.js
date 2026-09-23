@@ -65,6 +65,91 @@ export function useReveal() {
   }, []);
 }
 
+const reducedMotion = () =>
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* Types a word out, pauses, deletes it, then moves to the next in the list —
+   looping forever. Returns the text currently shown; the caret is drawn in CSS
+   so this hook only ever deals with characters. With reduced motion (or a
+   single-item list) it just settles on the first word. */
+export function useTypewriter(words, { typeMs = 55, deleteMs = 32, holdMs = 1800, pauseMs = 400 } = {}) {
+  const [text, setText] = useState(words[0] ?? "");
+  useEffect(() => {
+    if (words.length < 2 || reducedMotion()) return;
+    let i = 0, char = 0, deleting = false, timer;
+    const tick = () => {
+      const word = words[i];
+      if (!deleting) {
+        char++;
+        setText(word.slice(0, char));
+        if (char === word.length) {
+          deleting = true;
+          timer = setTimeout(tick, holdMs);
+          return;
+        }
+        timer = setTimeout(tick, typeMs);
+      } else {
+        char--;
+        setText(word.slice(0, char));
+        if (char === 0) {
+          deleting = false;
+          i = (i + 1) % words.length;
+          timer = setTimeout(tick, pauseMs);
+          return;
+        }
+        timer = setTimeout(tick, deleteMs);
+      }
+    };
+    timer = setTimeout(tick, typeMs);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- words is a static list from data/site.js
+  }, []);
+  return text;
+}
+
+/* Soft glow that follows the pointer across any hoverable card. One delegated
+   listener writes the pointer position into --mx / --my on the card under it;
+   the CSS decides how that looks. Skipped on touch devices, which have no hover. */
+export function useSpotlight() {
+  useEffect(() => {
+    if (!window.matchMedia("(hover: hover)").matches || reducedMotion()) return;
+    const onMove = (e) => {
+      const card = e.target.closest?.(".card.hoverable");
+      if (!card) return;
+      const box = card.getBoundingClientRect();
+      card.style.setProperty("--mx", `${e.clientX - box.left}px`);
+      card.style.setProperty("--my", `${e.clientY - box.top}px`);
+    };
+    document.addEventListener("pointermove", onMove, { passive: true });
+    return () => document.removeEventListener("pointermove", onMove);
+  }, []);
+}
+
+/* Lets the hero grid drift slower than the page as it scrolls away. The value
+   goes on the hero element only, so a scroll frame restyles one subtree rather
+   than the whole document, and it stops once the hero is off screen. */
+export function useHeroParallax() {
+  useEffect(() => {
+    const hero = document.querySelector(".hero");
+    if (!hero || reducedMotion()) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const y = Math.min(window.scrollY, hero.offsetHeight);
+      hero.style.setProperty("--sy", String(Math.round(y)));
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+}
+
 /* How far down the page we are, 0 → 1, for the accent bar under the header.
    Reads are batched into one animation frame so the scroll stays cheap. */
 export function useScrollProgress() {

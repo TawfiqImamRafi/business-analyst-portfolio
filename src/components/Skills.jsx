@@ -21,8 +21,8 @@ export default function Skills() {
             >
               <h3>{group}</h3>
               <div className="tagwrap">
-                {tags.map((tag) => (
-                  <span className="t" key={tag}>
+                {tags.map((tag, j) => (
+                  <span className="t" key={tag} style={{ "--k": j }}>
                     {tag}
                   </span>
                 ))}

@@ -37,10 +37,18 @@ rifat-portfolio-react/
 
 ## Where to edit things
 
-**Text and lists** — [`src/data/site.js`](src/data/site.js). Case studies, documentation
-cards, skills groups, capabilities, principles, timeline, contact details and the
-resume filename are all there. `cases` is a plain list of product names — the cards
-deliberately carry no description, so adding a case study is adding one string.
+**Text and lists** — [`src/data/site.js`](src/data/site.js). Case studies, live products,
+documentation cards, skills groups, capabilities, principles, timeline, contact details
+and the resume filename are all there.
+
+`caseStudies` holds the deep dives. Each entry is an object: `sector`, `domain`, `title`,
+`summary`, `context`, `role`, `process`, `solution`, `decisions`, `challenges`, `outcome`,
+`contribution`, plus optional `ecosystem`, `lifecycle` and `workflows` (each workflow is
+`{ title, steps, branches? }`). Optional blocks simply disappear when left out, and the
+"N products across …" line above the list is built from the entries' `sector` values.
+
+`liveProducts` is a list of `{ name, note? }`. The tiles deliberately carry no description;
+a `note` (for example "Government project") replaces the Live badge.
 
 Each `docs` entry is an object: `title`, `tag` (the pill — Spec / Delivery / Process /
 Design), `desc`, `inside` (four bullets) and `who`. Keep `inside` to four bullets so the

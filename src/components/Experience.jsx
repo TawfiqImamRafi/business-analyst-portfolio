@@ -19,7 +19,7 @@ export default function Experience() {
               </div>
             ))}
           </div>
-          <div className="card reveal">
+          <div className="card reveal from-right">
             <div className="card-label">The evolution</div>
             <div className="loop">
               {evolution.map((step, i) => (

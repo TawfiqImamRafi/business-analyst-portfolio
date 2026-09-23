@@ -1,31 +1,34 @@
 import { Fragment } from "react";
-import { aiChips, aiLoop } from "../data/site.js";
+import { aiChips, aiLoop, aiTools } from "../data/site.js";
 
 export default function AiAssisted() {
   return (
     <section id="ai">
       <div className="wrap">
         <div className="two-col">
-          <div className="reveal">
+          <div className="reveal from-left">
             <div className="eyebrow">AI-assisted work</div>
             <h2 className="title">AI-assisted product development.</h2>
             <p className="lede">
-              I use Claude AI and ChatGPT to move faster through research, analysis
+              I use a mix of AI tools to move faster through research, analysis
               and prototyping — so more time goes into judgement, stakeholder
               conversations and validation. AI supports my product thinking; it does
               not replace it.
             </p>
             <div className="pills" style={{ marginTop: 26 }}>
-              <span className="pill tool-pill">Claude AI</span>
-              <span className="pill tool-pill">ChatGPT</span>
+              {aiTools.map((tool, i) => (
+                <span className="pill tool-pill" key={tool} style={{ "--k": i }}>
+                  {tool}
+                </span>
+              ))}
             </div>
           </div>
           <div style={{ display: "grid", gap: 20 }}>
             <div className="card reveal">
               <div className="card-label">Where it helps</div>
               <div className="chipgrid">
-                {aiChips.map((chip) => (
-                  <span className="chip" key={chip}>
+                {aiChips.map((chip, i) => (
+                  <span className="chip" key={chip} style={{ "--k": i }}>
                     {chip}
                   </span>
                 ))}

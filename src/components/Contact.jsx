@@ -1,17 +1,13 @@
-import {
-  EMAIL,
-  PHONE,
-  PHONE_HREF,
-  RESUME,
-  RESUME_FILENAME,
-} from "../data/site.js";
+import { EMAIL, PHONE, PHONE_HREF } from "../data/site.js";
+import { useResumePreview } from "../context/ResumePreview.jsx";
 
 export default function Contact() {
+  const openResume = useResumePreview();
   return (
     <section className="dark" id="contact">
       <div className="wrap">
         <div className="two-col">
-          <div className="reveal">
+          <div className="reveal from-left">
             <div className="eyebrow">Contact</div>
             <h2 className="title">
               Let's build better
@@ -26,12 +22,12 @@ export default function Contact() {
               <a className="btn light" href={`mailto:${EMAIL}`}>
                 Get in Touch
               </a>
-              <a className="btn ghost-dark" href={RESUME} download={RESUME_FILENAME}>
-                Download Resume
-              </a>
+              <button type="button" className="btn ghost-dark" onClick={openResume}>
+                View Resume
+              </button>
             </div>
           </div>
-          <div className="contact-card reveal">
+          <div className="contact-card reveal from-right">
             <h3>Rifat Jahan Mim</h3>
             <div className="sub">
               Business Analyst | Product Analyst | Product &amp; Solution Designer

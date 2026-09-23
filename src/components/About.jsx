@@ -8,7 +8,7 @@ export default function About() {
     <section className="alt" id="about">
       <div className="wrap">
         <div className="two-col">
-          <div className="reveal">
+          <div className="reveal from-left">
             <div className="eyebrow">About</div>
             <h2 className="title">
               More than requirements.
@@ -43,7 +43,7 @@ export default function About() {
               ))}
             </div>
           </div>
-          <div className="card reveal">
+          <div className="card reveal from-right">
             <div className="card-label">What that looks like in practice</div>
             <ul className="checklist">
               {/* --d staggers each line in once the card has revealed */}
