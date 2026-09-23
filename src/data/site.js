@@ -79,35 +79,36 @@ export const capabilities = [
 export const caseStudies = [
   {
     sector: "fleet",
-    domain: "Enterprise Fleet Management",
+    domain: "Enterprise Fleet Management — Aviation Ground Ops",
     title: "Designing an Enterprise Vehicle Management System",
     summary:
-      "Vehicle requests, dispatch, assignment, trip operations, maintenance, inventory, procurement and reporting were handled through disconnected operational processes.",
+      "Vehicle operations were run manually and fragmented across departments — costs kept climbing, nothing was tracked in real time, and the setup couldn't meet the demands of aviation ground operations.",
     context:
-      "A large fleet operation where each function kept its own records, so the same vehicle, part or trip was tracked differently by different teams.",
+      "Vehicle operations were largely fragmented across departments, creating challenges in trip planning, driver & vehicle assignment, roster management, maintenance tracking and operational visibility. Everything ran on manual coordination — costs kept climbing with no reliable way to track a vehicle, driver or trip, and the setup couldn't serve the real-time, safety-critical needs of aviation ground operations.",
     role: "Business Analyst — discovery, requirement engineering, workflow and solution design.",
     process: [
-      "Mapped As-Is operations with fleet, workshop, store and management stakeholders.",
-      "Separated stated requests from the underlying operational problems.",
-      "Defined module boundaries, business rules and data ownership.",
-      "Prototyped flows quickly and re-validated them with stakeholders.",
+      "Studied the existing operational process end to end, including where it broke down.",
+      "Collaborated with fleet, driver, roster and maintenance stakeholders to understand real-world requirements.",
+      "Mapped the end-to-end workflows and identified the business rules and edge cases hiding inside them.",
+      "Translated the mapped flows into practical system requirements and UX flows.",
     ],
     solution: [
-      "One connected lifecycle from request through reporting instead of isolated logs.",
-      "Module-level ownership of data with defined handover points between teams.",
-      "Business rules written as explicit, testable statements for development and QA.",
+      "Designed a centralized VMS connecting Fleet, Drivers, Roster, Trips, GPS, Maintenance and Analytics into one operational ecosystem.",
+      "Real-time GPS monitoring replaced manual check-ins, so operations had live visibility instead of end-of-day guesswork.",
+      "Kept the system simple enough for day-to-day teams to run, while meeting the safety-critical timing aviation ground ops needed.",
     ],
     decisions: [
-      "Treat maintenance and supply chain as one continuous flow, not two systems.",
-      "Model approvals as states in the lifecycle rather than manual side processes.",
-      "Keep tracking and analytics as consumers of operational data, never as inputs.",
+      "Introduced structured workflows for vehicle requests, roster planning and trip assignment.",
+      "Made driver availability and shift rules explicit, checkable conditions instead of tribal knowledge.",
+      "Brought maintenance and real-time operational monitoring into the same system, not side spreadsheets.",
     ],
     challenges: [
-      "Conflicting definitions of the same process across departments.",
-      "Edge cases surfacing late in discussions, requiring continuous re-validation.",
+      "No real-time visibility into where a vehicle, driver or trip actually stood.",
+      "Manual coordination let costs drift, with no data trail to explain why.",
+      "Aviation ground operations needed real-time, safety-critical timing that manual coordination couldn't guarantee.",
     ],
     outcome:
-      "Delivered implementation-ready documentation — SRS, workflows, business rules and wireframes — giving business and engineering a single shared definition of the system.",
+      "Moved fleet operations from fragmented, manual coordination — rising costs, no real tracking — to a structured, transparent, rule-driven system with real-time monitoring built in: simple enough for day-to-day teams to run, reliable enough for aviation ground operations.",
     contribution: [
       "Product discovery", "Requirement analysis", "SRS", "User stories",
       "Workflow design", "Business rules", "Wireframes", "Solution structure",
@@ -120,8 +121,8 @@ export const caseStudies = [
       "GPS & Live Tracking", "Reports & Analytics",
     ],
     lifecycle: [
-      "Request", "Dispatch", "Assignment", "Trip",
-      "Maintenance", "Inventory", "Procurement", "Reporting",
+      "Request", "Validation", "Planning & Roster", "Driver/Vehicle Assignment",
+      "Pickup", "Trip Execution", "Completion", "Analytics",
     ],
     workflowsTitle: "From Fleet Operations to a Connected Enterprise System",
     workflows: [
